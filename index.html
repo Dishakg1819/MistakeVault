@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MistakeVault | Learn from every mistake</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="#" aria-label="MistakeVault home">
+        <span class="brand-mark">MV</span>
+        <span><strong>MistakeVault</strong><small>Learn. Correct. Improve.</small></span>
+      </a>
+
+      <p class="nav-heading">WORKSPACE</p>
+      <nav class="navigation" aria-label="Main navigation">
+        <button class="nav-link active" data-page="dashboard"><span>▦</span> Dashboard</button>
+        <button class="nav-link" data-page="add"><span>＋</span> Add Mistake</button>
+        <button class="nav-link" data-page="mistakes"><span>▤</span> My Mistakes</button>
+        <button class="nav-link" data-page="revision"><span>↻</span> Revision Room</button>
+        <button class="nav-link" data-page="selftest"><span>✓</span> Self-Test</button>
+        <button class="nav-link" data-page="analytics"><span>▥</span> Analytics</button>
+      </nav>
+
+      <div class="sidebar-bottom">
+        <div class="sidebar-tip">
+          <span class="tip-icon">✦</span>
+          <strong>Small steps matter</strong>
+          <p>Every corrected mistake is progress.</p>
+        </div>
+        <button class="nav-link" data-page="profile"><span>⚙</span> Profile & Settings</button>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">YOUR PERSONAL LEARNING SPACE</p>
+          <h1 id="pageTitle">Dashboard</h1>
+        </div>
+        <div class="profile-pill">
+          <span class="avatar" id="profileInitial">S</span>
+          <span id="profileDisplayName">Student</span>
+        </div>
+      </header>
+
+      <section class="page active" id="page-dashboard">
+        <div class="welcome-banner">
+          <div>
+            <p class="eyebrow light">WELCOME BACK</p>
+            <h2>Turn your mistakes into progress.</h2>
+            <p>Keep track of what went wrong, understand why, and revise with confidence.</p>
+            <button class="button button-light" data-go="add">＋ Record a mistake</button>
+          </div>
+          <div class="banner-art" aria-hidden="true">✦</div>
+        </div>
+
+        <div class="stats-grid">
+          <article class="stat-card">
+            <span class="stat-label">Total mistakes</span>
+            <strong class="stat-number" id="totalCount">0</strong>
+            <span class="stat-note">All saved records</span>
+          </article>
+          <article class="stat-card">
+            <span class="stat-label">Corrected</span>
+            <strong class="stat-number green" id="correctedCount">0</strong>
+            <span class="stat-note">Marked as understood</span>
+          </article>
+          <article class="stat-card">
+            <span class="stat-label">Need practice</span>
+            <strong class="stat-number orange" id="pendingCount">0</strong>
+            <span class="stat-note">Still to work on</span>
+          </article>
+          <article class="stat-card">
+            <span class="stat-label">Due for revision</span>
+            <strong class="stat-number pink" id="dueCount">0</strong>
+            <span class="stat-note">Revision date reached</span>
+          </article>
+        </div>
+
+        <div class="content-grid">
+          <article class="panel">
+            <div class="panel-heading">
+              <div><p class="eyebrow">YOUR LATEST RECORDS</p><h3>Recent mistakes</h3></div>
+              <button class="text-button" data-go="mistakes">View all →</button>
+            </div>
+            <div id="recentMistakes" class="compact-list"></div>
+          </article>
+          <article class="panel">
+            <div class="panel-heading">
+              <div><p class="eyebrow">DON'T FORGET</p><h3>Revision reminders</h3></div>
+              <button class="text-button" data-go="revision">Open room →</button>
+            </div>
+            <div id="dashboardDue" class="compact-list"></div>
+          </article>
+        </div>
+
+        <article class="panel repeat-panel">
+          <div class="panel-heading">
+            <div><p class="eyebrow">LEARNING PATTERN</p><h3>Topics to watch</h3></div>
+            <span class="soft-tag">Repeat mistake detector</span>
+          </div>
+          <div id="dashboardRepeats" class="repeat-list"></div>
+        </article>
+      </section>
+
+      <section class="page" id="page-add">
+        <div class="page-intro">
+          <p class="eyebrow">MISTAKE JOURNAL</p>
+          <h2 id="formHeading">Record a new mistake</h2>
+          <p>Write down what happened. The more clearly you explain it, the easier it is to learn from it.</p>
+        </div>
+        <form id="mistakeForm" class="panel form-panel">
+          <input type="hidden" id="mistakeId">
+          <div class="form-grid">
+            <label class="field">
+              <span>Topic <b>*</b></span>
+              <input type="text" id="topic" placeholder="e.g. Binary Conversion" required maxlength="80">
+            </label>
+            <label class="field">
+              <span>Category <b>*</b></span>
+              <select id="category" required>
+                <option value="Concept">Concept</option>
+                <option value="Theory">Theory</option>
+                <option value="Calculation">Calculation</option>
+                <option value="Careless error">Careless error</option>
+                <option value="Programming">Programming</option>
+              </select>
+            </label>
+            <label class="field full">
+              <span>Question or concept <b>*</b></span>
+              <textarea id="question" rows="3" placeholder="Write the question or describe the concept..." required></textarea>
+            </label>
+            <label class="field full">
+              <span>What was your incorrect answer?</span>
+              <textarea id="wrongAnswer" rows="2" placeholder="Write the answer you originally gave..."></textarea>
+            </label>
+            <label class="field full">
+              <span>Why did you get it wrong? <b>*</b></span>
+              <textarea id="reason" rows="3" placeholder="Explain what confused you or what step you missed..." required></textarea>
+            </label>
+            <label class="field full">
+              <span>Correct understanding <b>*</b></span>
+              <textarea id="correctAnswer" rows="4" placeholder="Write the correct answer and explain the correct method..." required></textarea>
+            </label>
+            <label class="field">
+              <span>Revision date</span>
+              <input type="date" id="revisionDate">
+              <small>Choose when you want to revisit this mistake.</small>
+            </label>
+          </div>
+          <div class="form-actions">
+            <button type="button" class="button button-ghost" id="cancelEdit" hidden>Cancel editing</button>
+            <button type="submit" class="button button-primary" id="saveMistakeButton">Save mistake</button>
+          </div>
+          <p class="form-message" id="formMessage" role="status"></p>
+        </form>
+      </section>
+
+      <section class="page" id="page-mistakes">
+        <div class="page-intro">
+          <p class="eyebrow">YOUR PERSONAL RECORD</p>
+          <h2>My Mistakes</h2>
+          <p>Search, filter, edit and revisit the mistakes you have saved.</p>
+        </div>
+        <div class="toolbar panel">
+          <input type="search" id="searchInput" placeholder="Search by topic or question...">
+          <select id="categoryFilter" aria-label="Filter by category">
+            <option value="All">All categories</option>
+            <option>Concept</option><option>Theory</option><option>Calculation</option>
+            <option>Careless error</option><option>Programming</option>
+          </select>
+          <select id="statusFilter" aria-label="Filter by status">
+            <option value="All">All statuses</option>
+            <option value="Pending">Need practice</option>
+            <option value="Corrected">Corrected</option>
+          </select>
+        </div>
+        <div id="mistakeList" class="mistake-grid"></div>
+      </section>
+
+      <section class="page" id="page-revision">
+        <div class="page-intro">
+          <p class="eyebrow">YOUR REVISION PLAN</p>
+          <h2>Revision Room</h2>
+          <p>These are the mistakes whose revision dates have arrived. Revisit the explanation and mark your progress.</p>
+        </div>
+        <div id="revisionList" class="mistake-grid"></div>
+      </section>
+
+      <section class="page" id="page-selftest">
+        <div class="page-intro">
+          <p class="eyebrow">PRACTICE WHAT YOU ONCE GOT WRONG</p>
+          <h2>Self-Test Mode</h2>
+          <p>Try answering a saved question before revealing the correct explanation.</p>
+        </div>
+        <div id="selfTestArea" class="panel self-test-panel"></div>
+      </section>
+
+      <section class="page" id="page-analytics">
+        <div class="page-intro">
+          <p class="eyebrow">SEE YOUR PROGRESS</p>
+          <h2>Learning Analytics</h2>
+          <p>Understand which areas need more attention.</p>
+        </div>
+        <div class="stats-grid analytics-stats">
+          <article class="stat-card"><span class="stat-label">Total records</span><strong class="stat-number" id="analyticsTotal">0</strong></article>
+          <article class="stat-card"><span class="stat-label">Corrected records</span><strong class="stat-number green" id="analyticsCorrected">0</strong></article>
+          <article class="stat-card"><span class="stat-label">Repeated topics</span><strong class="stat-number pink" id="analyticsRepeated">0</strong></article>
+        </div>
+        <div class="content-grid">
+          <article class="panel">
+            <div class="panel-heading"><div><p class="eyebrow">BY CATEGORY</p><h3>Mistake categories</h3></div></div>
+            <div id="categoryChart" class="bar-chart"></div>
+          </article>
+          <article class="panel">
+            <div class="panel-heading"><div><p class="eyebrow">REPEATED TOPICS</p><h3>Topics to practise</h3></div></div>
+            <div id="analyticsRepeats" class="compact-list"></div>
+          </article>
+        </div>
+      </section>
+
+      <section class="page" id="page-profile">
+        <div class="page-intro">
+          <p class="eyebrow">PERSONALISE YOUR SPACE</p>
+          <h2>Profile & Settings</h2>
+          <p>This beginner version stores one local student profile in this browser.</p>
+        </div>
+        <form class="panel profile-form" id="profileForm">
+          <label class="field"><span>Display name</span><input id="studentName" type="text" maxlength="40" placeholder="Enter your name"></label>
+          <button class="button button-primary" type="submit">Save profile</button>
+          <p class="form-message" id="profileMessage" role="status"></p>
+          <div class="notice"><strong>Demo limitation:</strong> This is not secure registration or login. Your records are stored only in this browser. A real multi-user login system requires a backend and database.</div>
+        </form>
+      </section>
+
+      <footer class="footer">MistakeVault · Don't repeat mistakes. Learn from them.</footer>
+    </main>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
