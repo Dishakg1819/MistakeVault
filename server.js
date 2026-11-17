@@ -7,6 +7,10 @@ const path = require("path");
 // Load environment variables
 dotenv.config();
 
+// Import MongoDB connection function
+const connectDB = require("./config/db");
+const mistakeRoutes = require("./routes/mistakeRoutes");
+
 // Create Express application
 const app = express();
 
@@ -16,11 +20,13 @@ const PORT = process.env.PORT || 3000;
 // Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+// Mistake API Routes
+app.use("/api/mistakes", mistakeRoutes);
 
 // Serve frontend files from public folder
 app.use(express.static(path.join(__dirname, "public")));
 
-// First API route - Health Check
+// Health Check API
 app.get("/api/health", (req, res) => {
     res.json({
         success: true,
@@ -28,7 +34,24 @@ app.get("/api/health", (req, res) => {
     });
 });
 
-// Start server
-app.listen(PORT, () => {
-    console.log(`MistakeVault server running at http://localhost:${PORT}`);
-});
+// Start server after connecting to MongoDB
+const startServer = async () => {
+    try {
+        // Connect to MongoDB Atlas
+        await connectDB();
+
+        // Start Express server
+        app.listen(PORT, () => {
+            console.log(
+                `MistakeVault server running at http://localhost:${PORT}`
+            );
+        });
+
+    } catch (error) {
+        console.error("Server startup failed:", error.message);
+        process.exit(1);
+    }
+};
+
+// Run the application
+startServer();
