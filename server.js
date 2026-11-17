@@ -41,11 +41,11 @@ const startServer = async () => {
         await connectDB();
 
         // Start Express server
-        app.listen(PORT, () => {
-            console.log(
-                `MistakeVault server running at http://localhost:${PORT}`
-            );
-        });
+        app.listen(PORT, "0.0.0.0", () => {
+    console.log(
+        `MistakeVault server running on port ${PORT}`
+    );
+});
 
     } catch (error) {
         console.error("Server startup failed:", error.message);
