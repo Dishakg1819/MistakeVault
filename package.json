@@ -1,0 +1,28 @@
+
+{
+  "name": "mistakevault",
+  "version": "1.0.0",
+  "description": "Your Personal Learning Mistake Memory System",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Dishakg1819/MistakeVault.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Dishakg1819/MistakeVault/issues"
+  },
+  "homepage": "https://github.com/Dishakg1819/MistakeVault#readme",
+  "dependencies": {
+    "dotenv": "^18.0.10",
+    "express": "^5.3.0",
+    "mongoose": "^9.12.2"
+  }
+}
